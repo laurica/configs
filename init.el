@@ -11,6 +11,15 @@
 (require 'expand-region)
 (global-set-key (kbd "C-;") 'er/expand-region)
 
+;; fill-column indicator replacing column-marker
+(require 'fill-column-indicator)
+(setq fci-rule-width 1)
+(setq fci-rule-color "darkblue")
+(setq fci-rule-column 80)
+(add-hook 'rust-mode-hook (lambda () (interactive) (fci-mode 1)))
+(add-hook 'c-mode-hook (lambda () (interactive) (fci-mode 1)))
+(add-hook 'c++-mode-hook (lambda () (interactive) (fci-mode 1)))
+
 ;; (require 'column-marker)
 ;; (add-hook 'c++-mode-hook (lambda () (interactive) (column-marker-1 80)))
 ;; (add-hook 'java-mode-hook (lambda () (interactive) (column-marker-1 80)))
