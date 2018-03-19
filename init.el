@@ -1,4 +1,4 @@
-;; Melpa ;; 
+;; Melpa ;;
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
@@ -11,14 +11,21 @@
 (require 'expand-region)
 (global-set-key (kbd "C-;") 'er/expand-region)
 
-(require 'column-marker)
-(add-hook 'c++-mode-hook (lambda () (interactive) (column-marker-1 80)))
-(add-hook 'java-mode-hook (lambda () (interactive) (column-marker-1 80)))
-(add-hook 'latex-mode-hook (lambda () (interactive) (column-marker-1 80)))
+;; (require 'column-marker)
+;; (add-hook 'c++-mode-hook (lambda () (interactive) (column-marker-1 80)))
+;; (add-hook 'java-mode-hook (lambda () (interactive) (column-marker-1 80)))
+;; (add-hook 'latex-mode-hook (lambda () (interactive) (column-marker-1 80)))
 
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
+(setq-default indent-tabs-mode nil)
+
+(defconst my-cc-style
+  '("bsd"
+  (c-offsets-alist . ((innamespace .[0])))))
+(c-add-style "my-cc-style" my-cc-style)
 
 ;; helm-projectile
 (projectile-global-mode)
@@ -49,6 +56,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(c-basic-offset 4)
+ '(c-default-style
+   (quote
+    ((c-mode . "my-cc-style")
+     (c++-mode . "my-cc-style")
+     (java-mode . "java")
+     (awk-mode . "awk")
+     (other . "gnu"))))
  '(inhibit-startup-screen t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -57,7 +71,7 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; Irony Mode 
+;; Irony Mode
 (add-hook 'c++-mode-hook 'irony-mode)
 
 ;; replace the `completion-at-point' and `complete-symbol' bindings in
